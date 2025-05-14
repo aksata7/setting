@@ -1,0 +1,45 @@
+title = "Gitleaks API Key Scanner"
+description = "Detect API keys, secrets, tokens"
+version = 3
+
+[[rules]]
+id = "GENERIC_API_KEY"
+description = "Detect generic API key-like strings"
+regex = '''(?i)(api[_-]?key|secret|token|access[_-]?token)[\s:=]+["']?[a-z0-9]{16,40}["']?'''
+tags = ["key", "secret", "generic"]
+
+[[rules]]
+id = "AWS_ACCESS_KEY_ID"
+description = "AWS Access Key ID"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+id = "AWS_SECRET_ACCESS_KEY"
+description = "AWS Secret Access Key"
+regex = '''(?i)aws(.{0,20})?(secret|private)?(.{0,20})?["']?[0-9a-zA-Z/+]{40}["']?'''
+tags = ["key", "AWS"]
+
+[[rules]]
+id = "SLACK_WEBHOOK"
+description = "Slack Webhook URL"
+regex = '''https://hooks.slack.com/services/T[a-zA-Z0-9]+/B[a-zA-Z0-9]+/[a-zA-Z0-9]+'''
+tags = ["key", "slack"]
+
+[[rules]]
+id = "GITHUB_PAT"
+description = "GitHub Personal Access Token"
+regex = '''ghp_[A-Za-z0-9_]{36}'''
+tags = ["key", "github"]
+
+[[rules]]
+id = "DISCORD_WEBHOOK"
+description = "Discord Webhook URL"
+regex = '''https://discord.com/api/webhooks/[0-9]+/[A-Za-z0-9_-]+'''
+tags = ["key", "discord"]
+
+[[rules]]
+id = "SSH_PRIVATE_KEY"
+description = "Detect SSH private keys"
+regex = '''-----BEGIN (RSA|DSA|EC|OPENSSH) PRIVATE KEY-----'''
+tags = ["key", "SSH", "private"]
